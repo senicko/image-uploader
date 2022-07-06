@@ -36,6 +36,7 @@ func UploadImage(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(UploadResponse{Url: "http://localhost:8080/uploads/" + fileName})
 
 	w.Header().Add("Content-Type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(res))
 }
