@@ -4,8 +4,13 @@ import { UploadForm } from './components/UploadForm';
 
 type UploadStage = 'upload' | 'process' | 'preview';
 
+interface UploadResponse {
+  url: string;
+}
+
 export const App = () => {
   const [stage, setStage] = useState<UploadStage>('upload');
+  const [uploadUrl, setUploadUrl] = useState<string>('');
 
   const upload = async (file: File) => {
     setStage('process');
@@ -13,11 +18,14 @@ export const App = () => {
     const data = new FormData();
     data.set('payload', file);
 
-    await fetch('/', {
+    const res = await fetch('http://localhost:8080/upload-image', {
       method: 'POST',
       body: data
     });
 
+    const { url } = (await res.json()) as UploadResponse;
+
+    setUploadUrl(url);
     setStage('preview');
   };
 
@@ -28,7 +36,7 @@ export const App = () => {
       case 'process':
         return <p>processing ...</p>;
       case 'preview':
-        return <p>preview ...</p>;
+        return <img src={uploadUrl} />;
     }
   };
 
