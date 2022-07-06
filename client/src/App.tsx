@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './App.module.css';
+import { Loader } from './components/Loader';
 import { UploadForm } from './components/UploadForm';
 
 type UploadStage = 'upload' | 'process' | 'preview';
@@ -9,7 +10,7 @@ interface UploadResponse {
 }
 
 export const App = () => {
-  const [stage, setStage] = useState<UploadStage>('upload');
+  const [stage, setStage] = useState<UploadStage>('process');
   const [uploadUrl, setUploadUrl] = useState<string>('');
 
   const upload = async (file: File) => {
@@ -34,7 +35,7 @@ export const App = () => {
       case 'upload':
         return <UploadForm onFileSelected={upload} />;
       case 'process':
-        return <p>processing ...</p>;
+        return <Loader />;
       case 'preview':
         return <img src={uploadUrl} />;
     }

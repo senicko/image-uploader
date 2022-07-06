@@ -24,7 +24,7 @@ export const UploadForm = ({ onFileSelected }: UploadFormProps) => {
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.header}>Upload your image</h1>
-      <p className={styles.info}>File should be Jpeg, Png, ...</p>
+      <p className={styles.info}>File should be jpeg, png, ...</p>
       <div
         className={styles.dropZone}
         onDrop={handleDropUpload}
