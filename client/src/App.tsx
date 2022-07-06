@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './App.module.css';
 import { Loader } from './components/Loader';
+import { Preview } from './components/Preview';
 import { UploadForm } from './components/UploadForm';
 
 type UploadStage = 'upload' | 'process' | 'preview';
@@ -10,8 +11,10 @@ interface UploadResponse {
 }
 
 export const App = () => {
-  const [stage, setStage] = useState<UploadStage>('process');
-  const [uploadUrl, setUploadUrl] = useState<string>('');
+  const [stage, setStage] = useState<UploadStage>('upload');
+  const [uploadUrl, setUploadUrl] = useState<string>(
+    'http://localhost:8080/uploads/1657108015454742000.jpeg'
+  );
 
   const upload = async (file: File) => {
     setStage('process');
@@ -37,7 +40,7 @@ export const App = () => {
       case 'process':
         return <Loader />;
       case 'preview':
-        return <img src={uploadUrl} />;
+        return <Preview uploadUrl={uploadUrl} />;
     }
   };
 
