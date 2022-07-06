@@ -4,12 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/senicko/image-uploader/server/pkg/api"
 	"github.com/senicko/image-uploader/server/pkg/storage"
 )
 
 func registerRoutes(m *http.ServeMux) {
-	m.HandleFunc("/upload-image", api.HttpMethod(http.MethodPost, storage.UploadImage))
+	m.HandleFunc("/upload-image", storage.UploadImage)
 
 	// Serve uploaded images
 	dir := http.Dir("./uploads")
